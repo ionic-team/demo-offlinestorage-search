@@ -1,0 +1,7 @@
+{
+  "name": "demo-offlinestorage-search",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
