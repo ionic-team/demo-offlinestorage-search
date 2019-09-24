@@ -1,0 +1,22 @@
+<ion-header translucent>
+  <ion-toolbar> <ion-title>People</ion-title> 
+  <ion-icon name="options" slot="end" size="large"
+    class="icon-toolbar-padding" color="primary" (click)="openSearchFilter()">
+  </ion-icon>
+</ion-toolbar>
+</ion-header>
+
+<ion-content id="content" fullscreen>
+  <ion-list>
+      <ion-item *ngFor="let employee of employees;" routerLink="/employees/detail/{{employee.id}}">
+        <ion-avatar slot="start">
+          <img src="assets/avatars/{{ employee.id }}-thumb.jpg" />
+        </ion-avatar>
+        <ion-label>
+          <h2>{{ employee.firstName }} {{ employee.lastName }}</h2>
+          <p>{{ employee.title }}</p>
+          <p>{{ employee.office }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+</ion-content>

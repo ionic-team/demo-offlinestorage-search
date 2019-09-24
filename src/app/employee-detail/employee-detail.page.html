@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start"> <ion-back-button></ion-back-button> </ion-buttons>
+    <ion-title>{{ fullName }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ng-container *ngIf="employee">
+    <div
+      class="detail-header"
+      [ngClass]="avatarExpanded ? 'expanded' : ''"
+      style.backgroundImage="url('assets/avatars/{{ employee.id }}-large.jpg')"
+      (click)="expandAvatar($event)">
+      <div class="avatar-container" [ngClass]="avatarExpanded ? 'expanded' : ''">
+        <img
+          class="medium-img"
+          (click)="expandAvatar($event)"
+          src="assets/avatars/{{ employee.id }}-medium.jpg"
+        />
+      </div>
+    </div>
+    <div class="employee-details">
+      <p class="name">{{ fullName }}</p>
+      <p>{{ employee.title }}</p>
+      <p>{{ employee.department }}</p>
+      <p>{{ employee.office }}</p>
+    </div>
+  </ng-container>
+</ion-content>
