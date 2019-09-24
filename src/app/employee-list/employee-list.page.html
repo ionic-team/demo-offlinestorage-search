@@ -7,6 +7,8 @@
 </ion-header>
 
 <ion-content id="content" fullscreen>
+  <ion-searchbar placeholder="Search Name..." [(ngModel)]="currentSearchQuery" 
+    (ionChange)="searchQueryChanged($event.target.value)"></ion-searchbar>
   <ion-list>
       <ion-item *ngFor="let employee of employees;" routerLink="/employees/detail/{{employee.id}}">
         <ion-avatar slot="start">

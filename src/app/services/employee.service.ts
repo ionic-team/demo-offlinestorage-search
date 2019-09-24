@@ -136,7 +136,6 @@ export class EmployeeService {
       // [ { "*": { id: "1", firstName: "Matt" } }, { "*": { id: "2", firstName: "Max" } }]
       // Couchbase can query multiple databases at once, so "*" is just this single database.
       let singleEmp = results[key]["*"];
-      console.log(singleEmp);
 
       this.employees.push(singleEmp);
     }
