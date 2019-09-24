@@ -29,6 +29,14 @@ export class EmployeeService {
     this.readyPromise = this.initializeDatabase();
   }
 
+  /*
+    Initialize the database. 
+    
+    Note about encryption: In a real-world app, the encryption key should not be hardcoded like it is here. 
+    One strategy is to auto generate a unique encryption key per user on initial app load, then store it securely in the device's keychain for later retrieval.
+    Ionic's Identity Vault (https://ionicframework.com/docs/enterprise/identity-vault) plugin is an option. Using IV’s storage API, you can ensure that the 
+    key cannot be read or accessed without the user being authenticated first.
+  */
   private async initializeDatabase(): Promise<void> {
     return new Promise(resolve => {
       IonicCBL.onReady(async () => {
@@ -48,6 +56,11 @@ export class EmployeeService {
     });
   }
 
+  /*
+    Import static employee data into a large JSON object (data/employeeData.ts), then load into Offline Storage.
+    In a real-world app, an external API could be called or a Couchbase Lite database zip file can be shipped with the app binary,
+    then extracted and loaded upon first time app initialization.
+  */
   private async seedInitialData() {
     let count = await this.getDatabaseCount();
     if (count === 0) {
@@ -64,15 +77,13 @@ export class EmployeeService {
           this.database.save(doc);
         }
     }
-
-    count = await this.getDatabaseCount();
   }
 
   async filterData(office, department, firstName) {
     await this.readyPromise;
 
     // Office and Department filters: Despite always passing their values to Couchbase directly as-is, make 
-    // them fuzzy so as to support the case when user selects "Any"
+    // them fuzzy so as to support the case when user selects the "Any" filter
     const query = QueryBuilder.select(SelectResult.all())
       .from(DataSource.database(this.database))
       .where(Expression.property("office").like(this.formatWildcardExpression(office))
@@ -87,7 +98,7 @@ export class EmployeeService {
     for (var key in results) {
       // SelectResult.all() returns all properties, but puts them into a seemingly odd JSON format:
       // [ { "*": { id: "1", firstName: "Matt" } }, { "*": { id: "2", firstName: "Max" } }]
-      // Couchbase can query multiple databases at once, so "*" is just this single database.
+      // Couchbase can query multiple databases at once, so "*" represents just this single database.
       let singleEmp = results[key]["*"];
 
       filteredEmployees.push(singleEmp);
@@ -96,6 +107,10 @@ export class EmployeeService {
     return filteredEmployees;
   }
 
+  /*
+    Retrieve all unique values in the database for one specific column of data.
+    Here, it's used to populate the Office and Department filters. 
+  */
   public async getAllUniqueValues(documentPropertyName) {
     const query = QueryBuilder.selectDistinct(
         SelectResult.property(documentPropertyName))
@@ -146,10 +161,14 @@ export class EmployeeService {
     
     const result = await query.execute();
     const count = (await result.allResults()).length;
-    console.log(`DB total records: ${count}`);
     return count;
   }
 
+  /*
+    Used to format the search queries that get executed against the Couchbase database.
+    If "Any" is passed in, meaning no search filter for that parameter, then send empty string - "".
+    Otherwise, use the value directly but add percentage signs so we can support fuzzy searches.
+  */
   private formatWildcardExpression(propValue) {
     return Expression.string(`%${propValue === "Any" ? "" : propValue}%`);
   }
