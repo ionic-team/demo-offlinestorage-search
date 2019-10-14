@@ -1,6 +1,6 @@
 # Demo App: Ionic Offline Storage - Advanced Search
 
-This is a reference app that demonstrates how to build advanced search into an Ionic app using the [Offline Storage](https://ionicframework.com/offline-storage) solution from [Ionic Native Enterprise Edition](https://ionicframework.com/docs/enterprise).
+This is a reference app that demonstrates how to build advanced search into an Ionic app using the [Offline Storage](https://ionicframework.com/offline-storage) solution from [Ionic Native](https://ionicframework.com/docs/enterprise).
 
 > Note: This demo app is for reference purposes only. Specs: `@ionic/angular` 4.7.1, Angular 8.
 
@@ -43,15 +43,15 @@ const results = await (await query.execute()).allResults();
 
 ## How to Run
 
-NOTE: This app requires an [Ionic Native Enterprise Edition](https://ionicframework.com/docs/enterprise) key in order to install and use the Ionic Auth Connect plugin. Enterprise Edition includes a reliable set of Native APIs & functionality that you can use in your Ionic app, quality controlled and maintained by the Ionic Team.
+NOTE: This app requires an [Ionic Native](https://ionicframework.com/docs/enterprise) key in order to install and use the Ionic Auth Connect plugin. Ionic Native includes a reliable set of Native APIs & functionality that you can use in your Ionic app, quality controlled and maintained by the Ionic Team.
 If you are interested in acquiring a key or learning more, please [contact us here](https://ionicframework.com/enterprise/contact).
 
 1) Clone this repository.
 2) Run `npm install`.
-3) Follow the Offline Storage plugin installation instructions [here](https://ionicframework.com/docs/enterprise/couchbase-lite).
+3) Follow the Offline Storage plugin installation instructions [here](https://ionicframework.com/docs/enterprise/offline-storage).
 4) Build and Deploy to an [Android](https://ionicframework.com/docs/building/android) or [iOS](https://ionicframework.com/docs/building/ios) device.
 
 ## Resources
 
-* [Offline Storage documentation](https://ionicframework.com/docs/enterprise/couchbase-lite)
+* [Offline Storage documentation](https://ionicframework.com/docs/enterprise/offline-storage)
 * [Ionic Framework](https://ionicframework.com)

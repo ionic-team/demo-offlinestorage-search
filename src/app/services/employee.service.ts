@@ -15,7 +15,7 @@ import {
   QueryBuilder,
   SelectResult,
   Expression
-} from '@ionic-enterprise/couchbase-lite';
+} from '@ionic-enterprise/offline-storage';
 
 @Injectable({
   providedIn: 'root'
