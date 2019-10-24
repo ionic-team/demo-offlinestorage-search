@@ -64,6 +64,31 @@ export class EmployeeService {
   private async seedInitialData() {
     let count = await this.getDatabaseCount();
     if (count === 0) {
+      try {
+        await this.database.inBatch(() => {
+          console.log("batching started...");
+          for (let emp of data) {
+            let doc = new MutableDocument()
+              .setNumber('id', emp.id)
+              .setString('firstName', emp.firstName)
+              .setString('lastName', emp.lastName)
+              .setString('title', emp.title)
+              .setString('office', emp.office)
+              .setString('department', emp.department);
+            
+            this.database.save(doc);
+          }
+      });
+      } catch (error) {
+        console.log(error);
+      };
+    }
+  }
+
+  /* FOR REFERENCE - old implementation
+  private async seedInitialData() {
+    let count = await this.getDatabaseCount();
+    if (count === 0) {
         const smallData = data.slice(0, 200);
         for (let emp of smallData) {
           let doc = new MutableDocument()
@@ -77,7 +102,7 @@ export class EmployeeService {
           this.database.save(doc);
         }
     }
-  }
+  }*/
 
   async filterData(office, department, firstName) {
     await this.readyPromise;
