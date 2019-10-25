@@ -50,7 +50,7 @@ export class EmployeeService {
         );
         await this.database.open();
 
-        this.seedInitialData();
+        await this.seedInitialData();
         resolve();
       });
     });
@@ -80,8 +80,10 @@ export class EmployeeService {
           }
       });
       } catch (error) {
-        console.log(error);
+        console.log("seed error" + error);
       };
+    } else {
+      console.log("Database already seeded.");
     }
   }
 
