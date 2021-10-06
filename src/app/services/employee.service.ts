@@ -14,7 +14,8 @@ import {
   Ordering,
   QueryBuilder,
   SelectResult,
-  Expression
+  Expression,
+  ArrayFunction
 } from '@ionic-enterprise/offline-storage';
 
 @Injectable({
@@ -108,6 +109,17 @@ export class EmployeeService {
 
   async filterData(office, department, firstName) {
     await this.readyPromise;
+
+    const planoz = QueryBuilder.select(SelectResult.all())
+      .from(DataSource.database(this.database))
+      .where(Expression.property("office").like(this.formatWildcardExpression(office))
+    ;
+
+    // select all Orders
+
+    // result -> formreach order -> orderArray. actiivies
+
+    // Orders[0].orderArray[0].Activities
 
     // Office and Department filters: Despite always passing their values to Couchbase directly as-is, make 
     // them fuzzy so as to support the case when user selects the "Any" filter
